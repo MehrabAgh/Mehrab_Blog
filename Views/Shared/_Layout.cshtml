@@ -1,0 +1,127 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" , shrink-to-fit=no" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/style.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/BlogUniversity.styles.css" asp-append-version="true" />
+        
+    <link rel="shortcut icon" href="favicon.png">
+    <meta name="description" content="" />
+    <meta name="keywords" content="bootstrap, bootstrap4" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="~/fonts/icomoon/style.css">
+    <link rel="stylesheet" href="~/fonts/flaticon/font/flaticon.css">
+    <link rel="stylesheet" href="~/css/jquery.fancybox.min.css">
+    <link rel="stylesheet" href="~/css/aos.css">
+    <link rel="stylesheet" href="~/css/style.css">
+</head>
+<body>  
+
+    <div class="site-mobile-menu site-navbar-target">
+        <div class="site-mobile-menu-header">
+            <div class="site-mobile-menu-close">
+                <span class="icofont-close js-menu-toggle"></span>
+            </div>
+        </div>
+        <div class="site-mobile-menu-body"></div>
+    </div>
+
+    <div class="container">
+        <nav class="site-nav">
+            <div class="row justify-content-between align-items-center">
+                <div class="d-none d-lg-block col-lg-3 top-menu">
+                    <a href="https://www.linkedin.com/in/mehrab-aghaee/" class="d-inline-flex align-items-center"><span class="icon-linkedin mr-2"></span></a>
+                    <a href="https://twitter.com/MehrabAghaee" class="d-inline-flex align-items-center"><span class="icon-twitter mr-2"></span></a>
+                    <a href="https://www.instagram.com/mehrab_81a/" class="d-inline-flex align-items-center"><span class="icon-instagram mr-2"></span></a>
+                </div>
+                <div class="col-3 col-md-6 col-lg-6 text-lg-center logo">
+                    <a asp-controller="Home" asp-action="Index">Mehrab Aghaee<span class="text-primary">.</span> </a>
+                </div>
+                <div class="col-9 col-md-6 col-lg-3 text-right top-menu">
+                    <div class="d-inline-flex align-items-center">
+                        <div class="search-wrap">
+                            <a href="#" class="d-inline-flex align-items-center js-search-toggle"><span class="icon-search2 mr-2"></span><span>Search</span></a>
+                            <form action="#" class="d-flex">
+                                <input type="search" id="s" class="form-control" placeholder="Enter keyword and hit enter...">
+                            </form>
+                        </div>
+                        <span class="mx-2 d-inline-block d-lg-none"></span>
+                        <a href="#" class="d-inline-flex align-items-center d-inline-block d-lg-none"><span class="icon-facebook mr-2"></span></a>
+                        <a href="#" class="d-inline-flex align-items-center d-inline-block d-lg-none"><span class="icon-twitter mr-2"></span></a>
+                        <a href="#" class="d-inline-flex align-items-center d-inline-block d-lg-none"><span class="icon-instagram mr-2"></span></a>
+                        <a href="#" class="burger ml-3 site-menu-toggle js-menu-toggle d-inline-block d-lg-none" data-toggle="collapse" data-target="#main-navbar">
+                            <span></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="d-none d-lg-block row align-items-center py-3">
+                <div class="col-12 col-sm-12 col-lg-12 site-navigation text-center">
+                    <ul class="js-clone-nav d-none d-lg-inline-block text-left site-menu">
+                        <li class="@LayoutData.statusHome"><a asp-controller="Home" asp-action="Index">Home</a></li>
+                        <li class="@LayoutData.statusAbout"><a asp-controller="AboutUs">About me</a></li>
+                        <li class="@LayoutData.statusPortfolio"><a asp-controller="Portfolio">Portfolio</a></li>
+                        <li class="@LayoutData.statusContact"><a asp-controller="ContactMe">Contact me</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav> <!-- END nav -->
+    </div> <!-- END container -->
+
+   
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <div class="site-footer">
+        <div class="container">
+            <div class="row justify-content-center copyright">
+                <div class="col-lg-7 text-center">
+                    <div class="widget">
+                        <ul class="social list-unstyled">
+                            <li><a href="https://www.instagram.com/mehrab_81a/"><span class="icon-instagram"></span></a></li>
+                            <li><a href="https://twitter.com/MehrabAghaee"><span class="icon-twitter"></span></a></li>
+                            <li><a href="https://www.linkedin.com/in/mehrab-aghaee/"><span class="icon-linkedin"></span></a></li>
+                            <li><a href="#"><span class="icon-youtube-play"></span></a></li>
+                        </ul>
+                    </div>
+
+                    <div class="widget">
+                        <p>
+                            Copyright &copy;<script>document.write(new Date().getFullYear());</script>. All Rights Reserved. &mdash; Designed with <a href="#">Mehrab Aghaee (ceo of vino dev team )</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/aos.js"></script>
+    <script src="js/imagesloaded.pkgd.js"></script>
+    <script src="js/isotope.pkgd.min.js"></script>
+    <script src="js/jquery.animateNumber.min.js"></script>
+    <script src="js/jquery.waypoints.min.js"></script>
+    <script src="js/jquery.fancybox.min.js"></script>
+    <script src="js/custom.js"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

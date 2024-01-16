@@ -1,0 +1,262 @@
+﻿@{
+    ViewData["Title"] = "Home Page";  
+}
+@functions{
+    List<BlogDetailModel> PostwithFilter(string filter , List<BlogDetailModel> allblog)
+    {
+        List<BlogDetailModel> Newlist = [];
+        foreach (BlogDetailModel bdm in allblog)
+        {
+            if(bdm.category == filter)
+            {
+                Newlist.Add(bdm);
+            }
+        }
+        return Newlist;
+    }
+    List<BlogDetailModel> SettingUpNewearBlog()
+    {
+        List<BlogDetailModel> a = [];        
+
+        foreach (BlogDetailModel itm in ViewBag.blogBody)
+        {
+            if (itm.date >= (DateTime.Now.AddDays(-20)))            
+                a.Add(itm);                           
+        }     
+        if(a.Count < 2)
+        {
+            a.Clear();
+            for (int i = 0; i <= 2; i++)
+                a.Add(ViewBag.blogBody[i]);
+        }
+        return a;
+    }
+    string CutoutText(string item, int maxShow)
+    {
+        if (item.Length < 100)
+        {                
+        return (@item+"...");
+        }
+        else{
+            return (@item.Substring(0, maxShow) +"...");
+        }
+    }
+}
+
+<div class="container mb-5">        
+    <div class="main-slider owl-single owl-carousel">
+        @foreach (var item in ViewBag.blogHead)
+        {
+            <div class="huge-article d-md-flex">
+                <div class="img-wrap">
+                    <a asp-controller="PostDetail" asp-action="Index" asp-route-id=@item.pid>
+                        <img src="images/@item.images[0]" alt="Image" class="img-fluid" />
+                    </a>
+                </div>
+                <div class="text-wrap">
+                    <div class="meta`">
+                        <span class="d-inline-block">@item.date</span>
+                        <span class="mx-2">&bullet;</span>
+                        <span><a href="#">@item.comments.Count Comments</a></span>
+                    </div>
+                    <br/>
+                    <h3><a href="#">@item.titles[0]</a></h3>
+                    @item.descriptions[0]...
+                    <br />
+                    <div class="author d-flex align-items-center" style="margin-top:10%">
+                        <br />
+                        <div class="img mr-3">
+                            <img src="images/@item.writer.ImgProfile" alt="Image" class="img-fluid">
+                        </div>
+                        <div class="text">
+                            <h3><a href="#">@item.writer.FirstName @item.writer.LastName</a></h3>
+                            <strong>@item.writer.Role</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+</div>
+
+<div class="section-latest">
+    <script type="text/Javascript" language="javascript">
+        function showAlert(email) {
+            if (document.getElementById('em').value.length > 0)
+                alert("wellcome to team " + document.getElementById('em').value);
+        }
+    </script>
+    <div class="container">
+        <div class="row gutter-v1 align-items-stretch mb-5">
+            <div class="col-12">
+                <h2 class="section-title">Newear</h2>
+            </div>
+            <div class="col-md-9 pr-md-5">
+                <div class="row">
+                    @{
+                         List<BlogDetailModel> x = SettingUpNewearBlog();                     
+                    }
+                    @foreach (BlogDetailModel c in x)
+                    {
+                        <div class="col-12">
+                            <div class="post-entry horizontal d-md-flex">
+                                <div class="media">
+                                    <a asp-controller="PostDetail" asp-action="Index" asp-route-id=@c.pid><img src="images/@c.images[0]" alt="Image" class="img-fluid"></a>
+                                </div>
+                                <div class="text">
+                                    <div class="meta">
+                                        <span>@c.date</span>
+                                        <span>&bullet;</span>
+                                        <span>@c.comments.Count Comments</span>
+                                    </div>
+                                    <h2><a href="#">@c.titles[0]</a></h2>
+                                    <p>@CutoutText(c.descriptions[0],190)</p>
+
+                                </div>
+                            </div>
+                        </div>
+                    }               
+                </div>
+            </div>
+            <br />
+            <div class="col-12">
+                <h2 class="section-title">Other's</h2>
+            </div>
+            <div class="col-md-9 pr-md-5">
+                <div class="row">
+                    @{
+                        // List<BlogDetailModel> x = SettingUpNewearBlog();
+                        List<BlogDetailModel> xl = ViewBag.blogBody;
+                    }
+                    @foreach (BlogDetailModel c in xl)
+                    {
+                        <div class="col-12">
+                            <div class="post-entry horizontal d-md-flex">
+                                <div class="media">
+                                    <a asp-controller="PostDetail" asp-action="Index" asp-route-id=@c.pid><img src="images/@c.images[0]" alt="Image" class="img-fluid"></a>
+                                </div>
+                                <div class="text">
+                                    <div class="meta">
+                                        <span>@c.date</span>
+                                        <span>&bullet;</span>
+                                        <span>@c.comments.Count Comments</span>
+                                    </div>
+                                    <h2><a href="#">@c.titles[0]</a></h2>
+                                    <p>@CutoutText(c.descriptions[0], 190)</p>
+
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="mb-4">
+                    <a>                   
+                        <img src="images/Blog/asdasd.jpg" alt="Image" class="img-fluid rounded">
+                    </a>
+                </div>
+                <div class="floating-block sticky-top text-center">
+                    <h2 class="mb-3 text-black">Subscribe to Newsletter</h2>
+                    <p>Enter your email to be notified of our new blogs.</p>
+                    <form action="#">
+                        <input id="em" required type="email" class="form-control mb-2" placeholder="Enter email">
+                        <input type="submit" value="Subscribe" class="btn btn-primary btn-block" onclick="showAlert()">
+                    </form>
+                </div>
+            </div> @* //corner newsletter *@
+        </div>
+        @{
+            List<BlogDetailModel> pG = PostwithFilter("Game", ViewBag.blogBody);
+            List<BlogDetailModel> pA = PostwithFilter("Ai", ViewBag.blogBody);
+        }
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="row">
+                    <div class="col-12">
+                        <h2 class="section-title">Game</h2>
+                    </div>                   
+                    @for(int i= 0; i < 2; i++)
+                    {
+                        @if (pG.Count >= 2)
+                        {
+                            <div class="col-md-6 col-lg-6">
+                                <div class="post-entry">
+                                    <div class="media">
+                                        <a asp-controller="PostDetail" asp-action="Index" asp-route-id=@pG[i].pid><img src="images/@pG[i].images[0]" alt="Image" class="img-fluid"></a>
+                                    </div>
+                                    <div class="text">
+                                        <div class="meta-cat"><a href="#">@pG[i].category</a></div>
+                                        <h2><a href="#">@pG[i].titles[0]</a></h2>
+                                        <div class="meta">
+                                            <span>@pG[i].date</span>
+                                            <span>&bullet;</span>
+                                            <span>5 mins read</span>
+                                        </div>
+                                        <p>@CutoutText(pG[i].descriptions[0], 120)</p>
+
+                                    </div>
+                                    <div class="author d-flex align-items-center">
+                                        <div class="img mr-3">
+                                            <a href="#"><img src="images/@pG[i].writer.ImgProfile" alt="Image" class="img-fluid"></a>
+                                        </div>
+                                        <div class="text">
+                                            <h3><a href="#">@pG[i].writer.FirstName @pG[i].writer.LastName</a></h3>
+                                            <strong>@pG[i].writer.Role</strong>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        }
+
+                    }                
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="row">
+                    <div class="col-12">
+                        <h2 class="section-title">AI</h2>
+                    </div>
+                    @for (int i = 0; i < 2; i++)
+                    {
+                        @if (pA.Count >= 2)
+                        {
+                            <div class="col-md-6 col-lg-6">
+                                <div class="post-entry">
+                                    <div class="media">
+                                        <a asp-controller="PostDetail" asp-action="Index" asp-route-id=@pA[i].pid><img src="images/@pA[i].images[0]" alt="Image" class="img-fluid"></a>
+                                    </div>
+                                    <div class="text">
+                                        <div class="meta-cat"><a href="#">@pA[i].category</a></div>
+                                        <h2><a href="#">@pA[i].titles[0]</a></h2>
+                                        <div class="meta">
+                                            <span>@pA[i].date</span>
+                                            <span>&bullet;</span>
+                                            <span>5 mins read</span>
+                                        </div>
+                                        <p>@CutoutText(pA[i].descriptions[0], 120)</p>
+
+                                    </div>
+                                    <div class="author d-flex align-items-center">
+                                        <div class="img mr-3">
+                                            <a href="#"><img src="images/@pA[i].writer.ImgProfile" alt="Image" class="img-fluid"></a>
+                                        </div>
+                                        <div class="text">
+                                            <h3><a href="#">@pA[i].writer.FirstName @pA[i].writer.LastName</a></h3>
+                                            <strong>@pA[i].writer.Role</strong>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }                      
+                    }               
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
